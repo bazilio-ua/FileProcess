@@ -130,4 +130,12 @@
     }
 }
 
+- (IBAction)processClicked:(id)sender {
+    if (self.tableView.selectedRowIndexes.count) {
+        
+    } else {
+        NSLog(@"please select files to process");
+    }
+}
+
 @end

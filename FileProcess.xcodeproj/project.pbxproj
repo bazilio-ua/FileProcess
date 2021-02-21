@@ -15,7 +15,34 @@
 		428804C625DFC07F00FE9A98 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 428804C425DFC07F00FE9A98 /* ViewController.xib */; };
 		428804CB25DFC1B400FE9A98 /* WindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 428804C925DFC1B400FE9A98 /* WindowController.m */; };
 		428804CC25DFC1B400FE9A98 /* WindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 428804CA25DFC1B400FE9A98 /* WindowController.xib */; };
+		428804F125E2D9EA00FE9A98 /* FileProcessXPCService.m in Sources */ = {isa = PBXBuildFile; fileRef = 428804F025E2D9EA00FE9A98 /* FileProcessXPCService.m */; };
+		428804F325E2D9EB00FE9A98 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 428804F225E2D9EB00FE9A98 /* main.m */; };
+		428804F725E2D9EB00FE9A98 /* FileProcessXPCService.xpc in Embed XPC Services */ = {isa = PBXBuildFile; fileRef = 428804EC25E2D9EA00FE9A98 /* FileProcessXPCService.xpc */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		428804F525E2D9EB00FE9A98 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 428804A525DFBD1000FE9A98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 428804EB25E2D9EA00FE9A98;
+			remoteInfo = FileProcessXPCService;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		428804F825E2D9EB00FE9A98 /* Embed XPC Services */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/XPCServices";
+			dstSubfolderSpec = 16;
+			files = (
+				428804F725E2D9EB00FE9A98 /* FileProcessXPCService.xpc in Embed XPC Services */,
+			);
+			name = "Embed XPC Services";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		428804AD25DFBD1000FE9A98 /* FileProcess.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FileProcess.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -32,10 +59,23 @@
 		428804C825DFC1B400FE9A98 /* WindowController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WindowController.h; sourceTree = "<group>"; };
 		428804C925DFC1B400FE9A98 /* WindowController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WindowController.m; sourceTree = "<group>"; };
 		428804CA25DFC1B400FE9A98 /* WindowController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WindowController.xib; sourceTree = "<group>"; };
+		428804EC25E2D9EA00FE9A98 /* FileProcessXPCService.xpc */ = {isa = PBXFileReference; explicitFileType = "wrapper.xpc-service"; includeInIndex = 0; path = FileProcessXPCService.xpc; sourceTree = BUILT_PRODUCTS_DIR; };
+		428804EE25E2D9EA00FE9A98 /* FileProcessXPCServiceProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FileProcessXPCServiceProtocol.h; sourceTree = "<group>"; };
+		428804EF25E2D9EA00FE9A98 /* FileProcessXPCService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FileProcessXPCService.h; sourceTree = "<group>"; };
+		428804F025E2D9EA00FE9A98 /* FileProcessXPCService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FileProcessXPCService.m; sourceTree = "<group>"; };
+		428804F225E2D9EB00FE9A98 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		428804F425E2D9EB00FE9A98 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		428804AA25DFBD1000FE9A98 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		428804E925E2D9EA00FE9A98 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -49,6 +89,7 @@
 			isa = PBXGroup;
 			children = (
 				428804AF25DFBD1000FE9A98 /* FileProcess */,
+				428804ED25E2D9EA00FE9A98 /* FileProcessXPCService */,
 				428804AE25DFBD1000FE9A98 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -57,6 +98,7 @@
 			isa = PBXGroup;
 			children = (
 				428804AD25DFBD1000FE9A98 /* FileProcess.app */,
+				428804EC25E2D9EA00FE9A98 /* FileProcessXPCService.xpc */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -81,6 +123,18 @@
 			path = FileProcess;
 			sourceTree = "<group>";
 		};
+		428804ED25E2D9EA00FE9A98 /* FileProcessXPCService */ = {
+			isa = PBXGroup;
+			children = (
+				428804EE25E2D9EA00FE9A98 /* FileProcessXPCServiceProtocol.h */,
+				428804EF25E2D9EA00FE9A98 /* FileProcessXPCService.h */,
+				428804F025E2D9EA00FE9A98 /* FileProcessXPCService.m */,
+				428804F225E2D9EB00FE9A98 /* main.m */,
+				428804F425E2D9EB00FE9A98 /* Info.plist */,
+			);
+			path = FileProcessXPCService;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -91,15 +145,34 @@
 				428804A925DFBD1000FE9A98 /* Sources */,
 				428804AA25DFBD1000FE9A98 /* Frameworks */,
 				428804AB25DFBD1000FE9A98 /* Resources */,
+				428804F825E2D9EB00FE9A98 /* Embed XPC Services */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				428804F625E2D9EB00FE9A98 /* PBXTargetDependency */,
 			);
 			name = FileProcess;
 			productName = FileProcess;
 			productReference = 428804AD25DFBD1000FE9A98 /* FileProcess.app */;
 			productType = "com.apple.product-type.application";
+		};
+		428804EB25E2D9EA00FE9A98 /* FileProcessXPCService */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 428804FB25E2D9EB00FE9A98 /* Build configuration list for PBXNativeTarget "FileProcessXPCService" */;
+			buildPhases = (
+				428804E825E2D9EA00FE9A98 /* Sources */,
+				428804E925E2D9EA00FE9A98 /* Frameworks */,
+				428804EA25E2D9EA00FE9A98 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FileProcessXPCService;
+			productName = FileProcessXPCService;
+			productReference = 428804EC25E2D9EA00FE9A98 /* FileProcessXPCService.xpc */;
+			productType = "com.apple.product-type.xpc-service";
 		};
 /* End PBXNativeTarget section */
 
@@ -110,6 +183,9 @@
 				LastUpgradeCheck = 1240;
 				TargetAttributes = {
 					428804AC25DFBD1000FE9A98 = {
+						CreatedOnToolsVersion = 12.4;
+					};
+					428804EB25E2D9EA00FE9A98 = {
 						CreatedOnToolsVersion = 12.4;
 					};
 				};
@@ -128,6 +204,7 @@
 			projectRoot = "";
 			targets = (
 				428804AC25DFBD1000FE9A98 /* FileProcess */,
+				428804EB25E2D9EA00FE9A98 /* FileProcessXPCService */,
 			);
 		};
 /* End PBXProject section */
@@ -141,6 +218,13 @@
 				428804CC25DFC1B400FE9A98 /* WindowController.xib in Resources */,
 				428804C625DFC07F00FE9A98 /* ViewController.xib in Resources */,
 				428804B725DFBD1200FE9A98 /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		428804EA25E2D9EA00FE9A98 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -158,7 +242,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		428804E825E2D9EA00FE9A98 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				428804F325E2D9EB00FE9A98 /* main.m in Sources */,
+				428804F125E2D9EA00FE9A98 /* FileProcessXPCService.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		428804F625E2D9EB00FE9A98 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 428804EB25E2D9EA00FE9A98 /* FileProcessXPCService */;
+			targetProxy = 428804F525E2D9EB00FE9A98 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		428804B525DFBD1200FE9A98 /* MainMenu.xib */ = {
@@ -319,6 +420,30 @@
 			};
 			name = Release;
 		};
+		428804F925E2D9EB00FE9A98 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = FileProcessXPCService/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = org.ua.fixme.FileProcessXPCService;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		428804FA25E2D9EB00FE9A98 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = FileProcessXPCService/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = org.ua.fixme.FileProcessXPCService;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -336,6 +461,15 @@
 			buildConfigurations = (
 				428804BF25DFBD1200FE9A98 /* Debug */,
 				428804C025DFBD1200FE9A98 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		428804FB25E2D9EB00FE9A98 /* Build configuration list for PBXNativeTarget "FileProcessXPCService" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				428804F925E2D9EB00FE9A98 /* Debug */,
+				428804FA25E2D9EB00FE9A98 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

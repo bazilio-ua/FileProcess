@@ -7,6 +7,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="ViewController">
             <connections>
+                <outlet property="processButton" destination="8BZ-Fc-vZu" id="W57-Lp-fKd"/>
                 <outlet property="tableView" destination="vYk-fS-iBP" id="Ss7-Bn-Kgd"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
@@ -81,7 +82,7 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView identifier="typeCell" id="g4d-fT-BG1">
-                                                <rect key="frame" x="311" y="0.0" width="138" height="24"/>
+                                                <rect key="frame" x="310.5" y="0.0" width="138" height="24"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YSg-aK-il9">
@@ -127,6 +128,9 @@
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
+                    <connections>
+                        <action selector="processClicked:" target="-2" id="Sgh-jN-ot6"/>
+                    </connections>
                 </button>
             </subviews>
             <constraints>
