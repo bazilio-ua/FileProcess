@@ -11,6 +11,10 @@
 		428804B425DFBD1200FE9A98 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 428804B325DFBD1200FE9A98 /* Assets.xcassets */; };
 		428804B725DFBD1200FE9A98 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 428804B525DFBD1200FE9A98 /* MainMenu.xib */; };
 		428804BA25DFBD1200FE9A98 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 428804B925DFBD1200FE9A98 /* main.m */; };
+		428804C525DFC07F00FE9A98 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 428804C325DFC07F00FE9A98 /* ViewController.m */; };
+		428804C625DFC07F00FE9A98 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 428804C425DFC07F00FE9A98 /* ViewController.xib */; };
+		428804CB25DFC1B400FE9A98 /* WindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 428804C925DFC1B400FE9A98 /* WindowController.m */; };
+		428804CC25DFC1B400FE9A98 /* WindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 428804CA25DFC1B400FE9A98 /* WindowController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +26,12 @@
 		428804B825DFBD1200FE9A98 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		428804B925DFBD1200FE9A98 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		428804BB25DFBD1200FE9A98 /* FileProcess.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FileProcess.entitlements; sourceTree = "<group>"; };
+		428804C225DFC07F00FE9A98 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		428804C325DFC07F00FE9A98 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		428804C425DFC07F00FE9A98 /* ViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ViewController.xib; sourceTree = "<group>"; };
+		428804C825DFC1B400FE9A98 /* WindowController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WindowController.h; sourceTree = "<group>"; };
+		428804C925DFC1B400FE9A98 /* WindowController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WindowController.m; sourceTree = "<group>"; };
+		428804CA25DFC1B400FE9A98 /* WindowController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WindowController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +71,12 @@
 				428804B825DFBD1200FE9A98 /* Info.plist */,
 				428804B925DFBD1200FE9A98 /* main.m */,
 				428804BB25DFBD1200FE9A98 /* FileProcess.entitlements */,
+				428804C825DFC1B400FE9A98 /* WindowController.h */,
+				428804C925DFC1B400FE9A98 /* WindowController.m */,
+				428804CA25DFC1B400FE9A98 /* WindowController.xib */,
+				428804C225DFC07F00FE9A98 /* ViewController.h */,
+				428804C325DFC07F00FE9A98 /* ViewController.m */,
+				428804C425DFC07F00FE9A98 /* ViewController.xib */,
 			);
 			path = FileProcess;
 			sourceTree = "<group>";
@@ -122,6 +138,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				428804B425DFBD1200FE9A98 /* Assets.xcassets in Resources */,
+				428804CC25DFC1B400FE9A98 /* WindowController.xib in Resources */,
+				428804C625DFC07F00FE9A98 /* ViewController.xib in Resources */,
 				428804B725DFBD1200FE9A98 /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -133,6 +151,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				428804C525DFC07F00FE9A98 /* ViewController.m in Sources */,
+				428804CB25DFC1B400FE9A98 /* WindowController.m in Sources */,
 				428804BA25DFBD1200FE9A98 /* main.m in Sources */,
 				428804B225DFBD1000FE9A98 /* AppDelegate.m in Sources */,
 			);

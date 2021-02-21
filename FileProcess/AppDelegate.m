@@ -6,16 +6,20 @@
 //
 
 #import "AppDelegate.h"
+#import "WindowController.h"
 
 @interface AppDelegate ()
 
-@property (strong) IBOutlet NSWindow *window;
+@property (nonatomic, strong) WindowController *windowController;
 @end
 
 @implementation AppDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     // Insert code here to initialize your application
+    
+    [self setWindowController:[[WindowController alloc] initWithWindowNibName:@"WindowController"]];
+    [[self windowController] showWindow:nil];
 }
 
 
@@ -23,5 +27,9 @@
     // Insert code here to tear down your application
 }
 
+
+- (IBAction)openDocument:(id)sender {
+    [self.windowController openDocument:sender];
+}
 
 @end
