@@ -22,8 +22,8 @@
     CC_SHA256_CTX context;
     CC_SHA256_Init(&context);
     
-    @autoreleasepool {
-        while (true) {
+    while (true) {
+        @autoreleasepool {
             id chunkData = [file readDataOfLength:bufferSize];
             if ([chunkData length] > 0) {
                 CC_SHA256_Update(&context, [chunkData bytes], (unsigned int)[chunkData length]);
