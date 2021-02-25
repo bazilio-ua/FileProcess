@@ -17,7 +17,8 @@
 
 @implementation WindowController
 
-- (void)dealloc {
+- (void)close {
+    [super close];
     
     [self.connectionToService invalidate];
 }
@@ -65,7 +66,6 @@
         
         processedFile(aFile, hash);
     }];
-    
 }
 
 @end
