@@ -65,6 +65,7 @@
 		428804F025E2D9EA00FE9A98 /* FileProcessXPCService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FileProcessXPCService.m; sourceTree = "<group>"; };
 		428804F225E2D9EB00FE9A98 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		428804F425E2D9EB00FE9A98 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		42EA66F025E7CECD00A7EFA0 /* FileProcessorProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FileProcessorProtocol.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +114,7 @@
 				428804B825DFBD1200FE9A98 /* Info.plist */,
 				428804B925DFBD1200FE9A98 /* main.m */,
 				428804BB25DFBD1200FE9A98 /* FileProcess.entitlements */,
+				42EA66F025E7CECD00A7EFA0 /* FileProcessorProtocol.h */,
 				428804C825DFC1B400FE9A98 /* WindowController.h */,
 				428804C925DFC1B400FE9A98 /* WindowController.m */,
 				428804CA25DFC1B400FE9A98 /* WindowController.xib */,

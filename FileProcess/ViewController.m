@@ -15,6 +15,7 @@
 @property (nonatomic, strong, readonly) NSArray *fileKeys;
 @property (nonatomic, assign, readonly) NSDirectoryEnumerationOptions fileOption;
 
+
 @end
 
 @implementation ViewController
@@ -133,8 +134,26 @@
 - (IBAction)processClicked:(id)sender {
     if (self.tableView.selectedRowIndexes.count) {
         
+        id file = self.representedObject[self.tableView.selectedRow];
+        if (file) {
+            [self.delegate processFile:file onCompletion:^(NSURL *aFile, NSString *hash) {
+                NSLog(@"file: %@", aFile);
+                NSLog(@"hash: %@", hash);
+            }];
+        }
     } else {
         NSLog(@"please select files to process");
+        
+        id alert = [NSAlert new];
+        [alert setIcon:[NSImage imageNamed:NSImageNameCaution]];
+        [alert setMessageText:@"Please select files to process"];
+        [alert addButtonWithTitle:@"ok"];
+        
+        [alert beginSheetModalForWindow:self.view.window completionHandler:^(NSModalResponse returnCode) {
+            if (returnCode == NSModalResponseOK) {
+                NSLog(@"ok");
+            }
+        }];
     }
 }
 
