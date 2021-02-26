@@ -18,6 +18,7 @@
 		428804F125E2D9EA00FE9A98 /* FileProcessXPCService.m in Sources */ = {isa = PBXBuildFile; fileRef = 428804F025E2D9EA00FE9A98 /* FileProcessXPCService.m */; };
 		428804F325E2D9EB00FE9A98 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 428804F225E2D9EB00FE9A98 /* main.m */; };
 		428804F725E2D9EB00FE9A98 /* FileProcessXPCService.xpc in Embed XPC Services */ = {isa = PBXBuildFile; fileRef = 428804EC25E2D9EA00FE9A98 /* FileProcessXPCService.xpc */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		42CFE1A225E9C0A200D7452B /* ServiceDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 42CFE1A125E9C0A200D7452B /* ServiceDelegate.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +66,8 @@
 		428804F025E2D9EA00FE9A98 /* FileProcessXPCService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FileProcessXPCService.m; sourceTree = "<group>"; };
 		428804F225E2D9EB00FE9A98 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		428804F425E2D9EB00FE9A98 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		42CFE1A025E9C0A200D7452B /* ServiceDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ServiceDelegate.h; sourceTree = "<group>"; };
+		42CFE1A125E9C0A200D7452B /* ServiceDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ServiceDelegate.m; sourceTree = "<group>"; };
 		42EA66F025E7CECD00A7EFA0 /* FileProcessorProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FileProcessorProtocol.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -132,6 +135,8 @@
 				428804EF25E2D9EA00FE9A98 /* FileProcessXPCService.h */,
 				428804F025E2D9EA00FE9A98 /* FileProcessXPCService.m */,
 				428804F225E2D9EB00FE9A98 /* main.m */,
+				42CFE1A025E9C0A200D7452B /* ServiceDelegate.h */,
+				42CFE1A125E9C0A200D7452B /* ServiceDelegate.m */,
 				428804F425E2D9EB00FE9A98 /* Info.plist */,
 			);
 			path = FileProcessXPCService;
@@ -249,6 +254,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				428804F325E2D9EB00FE9A98 /* main.m in Sources */,
+				42CFE1A225E9C0A200D7452B /* ServiceDelegate.m in Sources */,
 				428804F125E2D9EA00FE9A98 /* FileProcessXPCService.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

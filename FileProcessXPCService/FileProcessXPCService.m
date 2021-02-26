@@ -14,6 +14,9 @@
 
 - (void)processFile:(NSURL *)aFile withReply:(void (^)(NSURL *, NSString *))reply {
     
+    NSDictionary *fileResources = [aFile resourceValuesForKeys:@[NSURLFileSizeKey] error:nil];
+    size_t size = [fileResources[NSURLFileSizeKey] longLongValue];
+    
     id file = [NSFileHandle fileHandleForReadingFromURL:aFile error:nil];
     
     NSInteger bufferSize = 1024 * 1024;
@@ -24,6 +27,10 @@
     
     while (true) {
         @autoreleasepool {
+            size_t offset = [file offsetInFile];
+            float percent = (float)offset / size * 100;
+            NSLog(@"percent: %.2f%%", percent);
+            
             id chunkData = [file readDataOfLength:bufferSize];
             if ([chunkData length] > 0) {
                 CC_SHA256_Update(&context, [chunkData bytes], (unsigned int)[chunkData length]);
