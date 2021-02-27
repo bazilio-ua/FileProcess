@@ -6,6 +6,7 @@
 //
 
 #import "ViewController.h"
+#import "ProgressTableCellView.h"
 
 @interface ViewController ()
 
@@ -15,6 +16,7 @@
 @property (nonatomic, strong, readonly) NSArray *fileKeys;
 @property (nonatomic, assign, readonly) NSDirectoryEnumerationOptions fileOption;
 
+@property (nonatomic, strong) dispatch_group_t dispatchGroup;
 
 @end
 
@@ -54,6 +56,8 @@
     [self.tableView setAllowsMultipleSelection:YES];
     [self.tableView setTarget:self];
     [self.tableView setDoubleAction:@selector(onCellDoubleClick:)];
+    
+    self.dispatchGroup = dispatch_group_create();
 }
 
 #pragma mark - <NSTableViewDataSource>
@@ -85,6 +89,11 @@
         identifier = @"typeCell";
         
         text = fileResources[NSURLTypeIdentifierKey];
+        
+    } else if (tableColumn == tableView.tableColumns[2]) {
+        identifier = @"statusCell";
+        
+        text = @"unprocessed";
     }
     
     if (file) {
@@ -92,6 +101,11 @@
         
         cell.textField.stringValue = text;
         cell.imageView.image = image;
+        
+        if ([identifier isEqualToString:@"statusCell"]) {
+            [((ProgressTableCellView *)cell).progressIndicator setIndeterminate:YES];
+            [((ProgressTableCellView *)cell).progressIndicator setHidden:YES];
+        }
     }
     
     return cell;
@@ -134,13 +148,26 @@
 - (IBAction)processClicked:(id)sender {
     if (self.tableView.selectedRowIndexes.count) {
         
-        id file = self.representedObject[self.tableView.selectedRow];
-        if (file) {
-            [self.delegate processFile:file onCompletion:^(NSURL *aFile, NSString *hash) {
-                NSLog(@"file: %@", aFile);
-                NSLog(@"hash: %@", hash);
-            }];
-        }
+        __weak typeof(self)this = self;
+        [self.tableView.selectedRowIndexes enumerateIndexesUsingBlock:^(NSUInteger index, BOOL *stop) {
+            __strong typeof(self)self = this;
+            
+            id file = self.representedObject[index];
+            if (file) {
+                dispatch_group_enter(self.dispatchGroup);
+                [self.delegate processFile:file onCompletion:^(NSURL *aFile, NSString *hash) {
+                    NSLog(@"file: %@", aFile);
+                    NSLog(@"hash: %@", hash);
+                    dispatch_group_leave(self.dispatchGroup);
+                }];
+            }
+            
+        }];
+        
+        dispatch_group_notify(self.dispatchGroup, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+            NSLog(@"all processed");
+        });
+        
     } else {
         NSLog(@"please select files to process");
         
