@@ -103,7 +103,6 @@
         cell.imageView.image = image;
         
         if ([identifier isEqualToString:@"statusCell"]) {
-            [((ProgressTableCellView *)cell).progressIndicator setIndeterminate:YES];
             [((ProgressTableCellView *)cell).progressIndicator setHidden:YES];
             
             [((ProgressTableCellView *)cell).progressIndicator setMinValue:0];
@@ -214,7 +213,6 @@
         
         ProgressTableCellView *cell = [self.tableView viewAtColumn:2 row:index makeIfNecessary:NO];
         [cell.progressIndicator setHidden:NO];
-        [cell.progressIndicator setIndeterminate:NO];
         cell.textField.stringValue = @"";
     });
 }
@@ -241,7 +239,6 @@
         
         ProgressTableCellView *cell = [self.tableView viewAtColumn:2 row:index makeIfNecessary:NO];
         [cell.progressIndicator setHidden:YES];
-        [cell.progressIndicator setIndeterminate:YES];
     });
 }
 
