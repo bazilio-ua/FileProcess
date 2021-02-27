@@ -44,9 +44,9 @@
         @autoreleasepool {
             size_t offset = [file offsetInFile];
             float percent = (float)offset / size * 100;
-            NSLog(@"percent: %.2f%%", percent);
             
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                NSLog(@"percent: %.2f%%", percent);
                 [[self.connection remoteObjectProxy] updateProgress:percent forFile:aFile];
             });
             
@@ -56,6 +56,7 @@
             } else {
                 
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                    NSLog(@"finished.");
                     [[self.connection remoteObjectProxy] finishedProcessForFile:aFile];
                 });
                 
