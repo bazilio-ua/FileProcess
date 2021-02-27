@@ -8,7 +8,22 @@
 #import <CommonCrypto/CommonCrypto.h>
 #import "FileProcessXPCService.h"
 
+@interface FileProcessXPCService ()
+
+@property (nonatomic, weak) NSXPCConnection *connection;
+
+@end
+
 @implementation FileProcessXPCService
+
+- (instancetype)initWithConnection:(NSXPCConnection *)connection {
+    self = [super init];
+    if (self) {
+        [self setConnection:connection];
+    }
+    
+    return self;
+}
 
 // This implements the example protocol. Replace the body of this class with the implementation of this service's protocol.
 
@@ -31,11 +46,17 @@
             float percent = (float)offset / size * 100;
             NSLog(@"percent: %.2f%%", percent);
             
+            [[self.connection remoteObjectProxy] updateProgress:percent forFile:aFile];
+            
             id chunkData = [file readDataOfLength:bufferSize];
             if ([chunkData length] > 0) {
                 CC_SHA256_Update(&context, [chunkData bytes], (unsigned int)[chunkData length]);
-            } else
+            } else {
+                
+                [[self.connection remoteObjectProxy] finishedProcessForFile:aFile];
+                
                 break; // EOF
+            }
         }
     }
     

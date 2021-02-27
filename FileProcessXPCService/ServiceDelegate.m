@@ -21,8 +21,10 @@
     newConnection.exportedInterface = [NSXPCInterface interfaceWithProtocol:@protocol(FileProcessXPCServiceProtocol)];
     
     // Next, set the object that the connection exports. All messages sent on the connection to this service will be sent to the exported object to handle. The connection retains the exported object.
-    FileProcessXPCService *exportedObject = [FileProcessXPCService new];
-    newConnection.exportedObject = exportedObject;
+    newConnection.exportedObject = [[FileProcessXPCService alloc] initWithConnection:newConnection];
+    
+    // (exported from the other side). This value is required if messages are sent over this connection.
+    newConnection.remoteObjectInterface = [NSXPCInterface interfaceWithProtocol:@protocol(FileProcessXPCServiceProgressProtocol)];
     
     // Resuming the connection allows the system to deliver more incoming messages.
     [newConnection resume];

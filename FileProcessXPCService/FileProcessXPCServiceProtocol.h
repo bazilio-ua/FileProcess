@@ -14,3 +14,10 @@
 - (void)processFile:(NSURL *)aFile withReply:(void (^)(NSURL *, NSString *))reply;
 
 @end
+
+@protocol FileProcessXPCServiceProgressProtocol
+
+- (void)updateProgress:(float)percentage forFile:(NSURL *)aFile;
+- (void)finishedProcessForFile:(NSURL *)aFile;
+
+@end
