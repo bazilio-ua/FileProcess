@@ -46,14 +46,18 @@
             float percent = (float)offset / size * 100;
             NSLog(@"percent: %.2f%%", percent);
             
-            [[self.connection remoteObjectProxy] updateProgress:percent forFile:aFile];
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                [[self.connection remoteObjectProxy] updateProgress:percent forFile:aFile];
+            });
             
             id chunkData = [file readDataOfLength:bufferSize];
             if ([chunkData length] > 0) {
                 CC_SHA256_Update(&context, [chunkData bytes], (unsigned int)[chunkData length]);
             } else {
                 
-                [[self.connection remoteObjectProxy] finishedProcessForFile:aFile];
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                    [[self.connection remoteObjectProxy] finishedProcessForFile:aFile];
+                });
                 
                 break; // EOF
             }

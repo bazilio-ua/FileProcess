@@ -35,7 +35,7 @@
     [self.connectionToService setRemoteObjectInterface:[NSXPCInterface interfaceWithProtocol:@protocol(FileProcessXPCServiceProtocol)]];
     
     [self.connectionToService setExportedInterface:[NSXPCInterface interfaceWithProtocol:@protocol(FileProcessXPCServiceProgressProtocol)]];
-    [self.connectionToService setExportedObject:self];
+    [self.connectionToService setExportedObject:controller];
     
     [self.connectionToService setInterruptionHandler:^{
         NSLog(@"connection to process was interrupted");
@@ -70,17 +70,6 @@
         
         processedFile(aFile, hash);
     }];
-}
-
-#pragma mark -
-#pragma mark <FileProcessXPCServiceProgressProtocol>
-
-- (void)updateProgress:(float)percentage forFile:(NSURL *)aFile {
-    
-}
-
-- (void)finishedProcessForFile:(NSURL *)aFile {
-    
 }
 
 @end

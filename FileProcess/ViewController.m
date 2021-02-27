@@ -157,4 +157,25 @@
     }
 }
 
+#pragma mark -
+#pragma mark <FileProcessXPCServiceProgressProtocol>
+
+- (void)updateProgress:(float)percentage forFile:(NSURL *)aFile {
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSLog(@"file progress: %.2f", percentage);
+        NSUInteger index = [self.representedObject indexOfObject:aFile];
+        NSLog(@"%lu", index);
+    });
+}
+
+- (void)finishedProcessForFile:(NSURL *)aFile {
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSLog(@"complete file processing");
+        NSUInteger index = [self.representedObject indexOfObject:aFile];
+        NSLog(@"%lu", index);
+    });
+}
+
 @end
