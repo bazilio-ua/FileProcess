@@ -149,6 +149,12 @@
 }
 
 - (IBAction)processClicked:(id)sender {
+    
+    if (self.representedObject == nil) {
+        [self.delegate openFile:sender];
+        return;
+    }
+    
     if (self.tableView.selectedRowIndexes.count) {
         
         __weak typeof(self)this = self;

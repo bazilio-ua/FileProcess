@@ -10,5 +10,6 @@
 @protocol FileProcessorProtocol <NSObject>
 
 - (void)processFile:(NSURL *)file onCompletion:(void (^)(NSURL *, NSString *))processedFile;
+- (void)openFile:(id)sender;
 
 @end

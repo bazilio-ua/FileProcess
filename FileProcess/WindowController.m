@@ -73,4 +73,8 @@
     });
 }
 
+- (void)openFile:(id)sender {
+    [self openDocument:sender];
+}
+
 @end
