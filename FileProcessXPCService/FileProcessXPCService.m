@@ -25,9 +25,7 @@
     return self;
 }
 
-// This implements the example protocol. Replace the body of this class with the implementation of this service's protocol.
-
-- (void)processFile:(NSURL *)aFile withReply:(void (^)(NSURL *, NSString *))reply {
+- (void)processFile:(NSURL *)aFile onCompletion:(void (^)(NSURL *, NSString *))replyFile {
     
     NSDictionary *fileResources = [aFile resourceValuesForKeys:@[NSURLFileSizeKey] error:nil];
     size_t size = [fileResources[NSURLFileSizeKey] longLongValue];
@@ -79,7 +77,21 @@
     NSLog(@"file: %@", aFile);
     NSLog(@"hash: %@", hash);
     
-    reply([aFile copy], [hash copy]);
+    replyFile([aFile copy], [hash copy]);
+}
+
+#pragma mark -
+#pragma mark <FileProcessXPCServiceProtocol>
+
+// This implements the example protocol. Replace the body of this class with the implementation of this service's protocol.
+
+- (void)processFile:(NSURL *)aFile withReply:(void (^)(NSURL *, NSString *))reply {
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [self processFile:aFile onCompletion:^(NSURL *aFile, NSString *hash) {
+            reply(aFile, hash);
+        }];
+    });
 }
 
 @end
