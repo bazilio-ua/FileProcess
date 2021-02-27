@@ -66,10 +66,11 @@
 
 - (void)processFile:(NSURL *)file onCompletion:(void (^)(NSURL *, NSString *))processedFile {
     
-    [[self.connectionToService remoteObjectProxy] processFile:file withReply:^(NSURL *aFile, NSString *hash) {
-        
-        processedFile(aFile, hash);
-    }];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [[self.connectionToService remoteObjectProxy] processFile:file withReply:^(NSURL *aFile, NSString *hash) {
+            processedFile(aFile, hash);
+        }];
+    });
 }
 
 @end

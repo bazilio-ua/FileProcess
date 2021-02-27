@@ -37,6 +37,11 @@
     NSInteger bufferSize = 1024 * 1024;
     unsigned char digest[CC_SHA256_DIGEST_LENGTH];
     
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSLog(@"started... ->");
+        [[self.connection remoteObjectProxy] startedProcessForFile:aFile];
+    });
+    
     CC_SHA256_CTX context;
     CC_SHA256_Init(&context);
     
@@ -47,23 +52,22 @@
             
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                 NSLog(@"percent: %.2f%%", percent);
-                [[self.connection remoteObjectProxy] updateProgress:percent forFile:aFile];
+                [[self.connection remoteObjectProxy] updateProcessWithProgress:percent forFile:aFile];
             });
             
             id chunkData = [file readDataOfLength:bufferSize];
             if ([chunkData length] > 0) {
                 CC_SHA256_Update(&context, [chunkData bytes], (unsigned int)[chunkData length]);
             } else {
-                
-                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                    NSLog(@"finished.");
-                    [[self.connection remoteObjectProxy] finishedProcessForFile:aFile];
-                });
-                
                 break; // EOF
             }
         }
     }
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSLog(@"-> finished.");
+        [[self.connection remoteObjectProxy] finishedProcessForFile:aFile];
+    });
     
     CC_SHA256_Final(digest, &context);
     

@@ -17,7 +17,8 @@
 
 @protocol FileProcessXPCServiceProgressProtocol
 
-- (void)updateProgress:(float)percentage forFile:(NSURL *)aFile;
+- (void)startedProcessForFile:(NSURL *)aFile;
+- (void)updateProcessWithProgress:(float)percentage forFile:(NSURL *)aFile;
 - (void)finishedProcessForFile:(NSURL *)aFile;
 
 @end

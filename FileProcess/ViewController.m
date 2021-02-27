@@ -105,6 +105,9 @@
         if ([identifier isEqualToString:@"statusCell"]) {
             [((ProgressTableCellView *)cell).progressIndicator setIndeterminate:YES];
             [((ProgressTableCellView *)cell).progressIndicator setHidden:YES];
+            
+            [((ProgressTableCellView *)cell).progressIndicator setMinValue:0];
+            [((ProgressTableCellView *)cell).progressIndicator setMaxValue:100];
         }
     }
     
@@ -156,8 +159,17 @@
             if (file) {
                 dispatch_group_enter(self.dispatchGroup);
                 [self.delegate processFile:file onCompletion:^(NSURL *aFile, NSString *hash) {
-                    NSLog(@"file: %@", aFile);
-                    NSLog(@"hash: %@", hash);
+                    
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        NSLog(@"file: %@", aFile);
+                        NSLog(@"hash: %@", hash);
+                        NSUInteger index = [self.representedObject indexOfObject:aFile];
+                        NSLog(@"%lu", index);
+                        
+                        ProgressTableCellView *cell = [self.tableView viewAtColumn:2 row:index makeIfNecessary:NO];
+                        cell.textField.stringValue = hash;
+                    });
+                    
                     dispatch_group_leave(self.dispatchGroup);
                 }];
             }
@@ -187,12 +199,30 @@
 #pragma mark -
 #pragma mark <FileProcessXPCServiceProgressProtocol>
 
-- (void)updateProgress:(float)percentage forFile:(NSURL *)aFile {
+- (void)startedProcessForFile:(NSURL *)aFile {
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSLog(@"begin file processing");
+        NSUInteger index = [self.representedObject indexOfObject:aFile];
+        NSLog(@"%lu", index);
+        
+        ProgressTableCellView *cell = [self.tableView viewAtColumn:2 row:index makeIfNecessary:NO];
+        [cell.progressIndicator setHidden:NO];
+        [cell.progressIndicator setIndeterminate:NO];
+        cell.textField.stringValue = @"";
+    });
+}
+
+
+- (void)updateProcessWithProgress:(float)percentage forFile:(NSURL *)aFile {
     
     dispatch_async(dispatch_get_main_queue(), ^{
         NSLog(@"file progress: %.2f", percentage);
         NSUInteger index = [self.representedObject indexOfObject:aFile];
         NSLog(@"%lu", index);
+        
+        ProgressTableCellView *cell = [self.tableView viewAtColumn:2 row:index makeIfNecessary:NO];
+        [cell.progressIndicator setDoubleValue:percentage];
     });
 }
 
@@ -202,6 +232,10 @@
         NSLog(@"complete file processing");
         NSUInteger index = [self.representedObject indexOfObject:aFile];
         NSLog(@"%lu", index);
+        
+        ProgressTableCellView *cell = [self.tableView viewAtColumn:2 row:index makeIfNecessary:NO];
+        [cell.progressIndicator setHidden:YES];
+        [cell.progressIndicator setIndeterminate:YES];
     });
 }
 
