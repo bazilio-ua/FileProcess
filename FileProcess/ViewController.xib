@@ -8,6 +8,8 @@
         <customObject id="-2" userLabel="File's Owner" customClass="ViewController">
             <connections>
                 <outlet property="processButton" destination="8BZ-Fc-vZu" id="W57-Lp-fKd"/>
+                <outlet property="progressIndicator" destination="DLj-lz-EOK" id="6M6-YU-ih4"/>
+                <outlet property="progressLabel" destination="jSJ-A0-apa" id="gpf-gR-eH9"/>
                 <outlet property="tableView" destination="vYk-fS-iBP" id="Ss7-Bn-Kgd"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
@@ -82,7 +84,7 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView identifier="typeCell" id="g4d-fT-BG1">
-                                                <rect key="frame" x="310" y="0.0" width="132" height="24"/>
+                                                <rect key="frame" x="310.5" y="0.0" width="132" height="24"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YSg-aK-il9">
@@ -169,15 +171,31 @@
                         <action selector="processClicked:" target="-2" id="Sgh-jN-ot6"/>
                     </connections>
                 </button>
+                <progressIndicator maxValue="100" doubleValue="65" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="DLj-lz-EOK">
+                    <rect key="frame" x="20" y="20" width="16" height="16"/>
+                </progressIndicator>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="jSJ-A0-apa">
+                    <rect key="frame" x="44" y="20" width="37" height="16"/>
+                    <textFieldCell key="cell" lineBreakMode="clipping" title="Label" id="xip-D8-GVF">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
             </subviews>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="8BZ-Fc-vZu" secondAttribute="trailing" constant="20" symbolic="YES" id="24q-RT-CXQ"/>
                 <constraint firstAttribute="trailing" secondItem="ExM-b7-ANA" secondAttribute="trailing" constant="20" symbolic="YES" id="5PN-Cz-YH0"/>
+                <constraint firstItem="jSJ-A0-apa" firstAttribute="top" secondItem="ExM-b7-ANA" secondAttribute="bottom" constant="24" id="KTw-4U-omQ"/>
+                <constraint firstItem="DLj-lz-EOK" firstAttribute="top" secondItem="ExM-b7-ANA" secondAttribute="bottom" constant="24" id="VcD-E2-6uz"/>
                 <constraint firstItem="8BZ-Fc-vZu" firstAttribute="top" secondItem="ExM-b7-ANA" secondAttribute="bottom" constant="20" symbolic="YES" id="bYL-AR-0dH"/>
+                <constraint firstItem="jSJ-A0-apa" firstAttribute="leading" secondItem="DLj-lz-EOK" secondAttribute="trailing" constant="10" id="dzt-N3-xVx"/>
                 <constraint firstItem="8BZ-Fc-vZu" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="20" symbolic="YES" id="feO-5N-VQI"/>
+                <constraint firstAttribute="bottom" secondItem="DLj-lz-EOK" secondAttribute="bottom" constant="20" symbolic="YES" id="m97-g3-Ail"/>
                 <constraint firstItem="ExM-b7-ANA" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="20" symbolic="YES" id="pAe-Nk-nuI"/>
                 <constraint firstAttribute="bottom" secondItem="8BZ-Fc-vZu" secondAttribute="bottom" constant="20" symbolic="YES" id="qYS-dy-I3R"/>
                 <constraint firstItem="ExM-b7-ANA" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="20" symbolic="YES" id="t8J-Ph-ijs"/>
+                <constraint firstItem="DLj-lz-EOK" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="20" symbolic="YES" id="y1S-W1-PYj"/>
             </constraints>
             <point key="canvasLocation" x="-137" y="141.5"/>
         </customView>

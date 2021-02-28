@@ -13,6 +13,11 @@
 @property (weak) IBOutlet NSTableView *tableView;
 @property (weak) IBOutlet NSButton *processButton;
 
+@property (weak) IBOutlet NSTextField *progressLabel;
+@property (weak) IBOutlet NSProgressIndicator *progressIndicator;
+
+@property (atomic, assign) NSUInteger processedCount;
+
 @property (nonatomic, strong, readonly) NSArray *fileKeys;
 @property (nonatomic, assign, readonly) NSDirectoryEnumerationOptions fileOption;
 
@@ -44,6 +49,11 @@
     [super setRepresentedObject:representedObject];
     
     [self.tableView reloadData];
+    
+    [self.progressIndicator setHidden:YES];
+    [self.progressIndicator setIndeterminate:YES];
+    [self.progressLabel setHidden:YES];
+    [self.progressLabel setStringValue:@""];
 }
 
 - (void)viewDidLoad {
@@ -56,6 +66,11 @@
     [self.tableView setAllowsMultipleSelection:YES];
     [self.tableView setTarget:self];
     [self.tableView setDoubleAction:@selector(onCellDoubleClick:)];
+    
+    [self.progressIndicator setHidden:YES];
+    [self.progressIndicator setIndeterminate:YES];
+    [self.progressLabel setHidden:YES];
+    [self.progressLabel setStringValue:@""];
     
     self.dispatchGroup = dispatch_group_create();
 }
@@ -156,6 +171,21 @@
     
     if (self.tableView.selectedRowIndexes.count) {
         
+        [self.processButton setEnabled:NO];
+        
+        self.processedCount = 0;
+        
+        [self.progressIndicator setHidden:NO];
+        [self.progressIndicator setIndeterminate:NO];
+        [self.progressIndicator setMinValue:0];
+        [self.progressIndicator setMaxValue:self.tableView.selectedRowIndexes.count];
+        [self.progressIndicator setDoubleValue:self.processedCount];
+        
+        [self.progressLabel setHidden:NO];
+        [self.progressLabel setStringValue:[NSString stringWithFormat:@"%lu of %lu completed",
+                                            self.processedCount,
+                                            self.tableView.selectedRowIndexes.count]];
+        
         __weak typeof(self)this = self;
         [self.tableView.selectedRowIndexes enumerateIndexesUsingBlock:^(NSUInteger index, BOOL *stop) {
             __strong typeof(self)self = this;
@@ -173,16 +203,26 @@
                         
                         ProgressTableCellView *cell = [self.tableView viewAtColumn:2 row:index makeIfNecessary:NO];
                         cell.textField.stringValue = hash;
+                        
+                        self.processedCount += 1;
+                        [self.progressIndicator setDoubleValue:self.processedCount];
+                        
+                        [self.progressLabel setStringValue:[NSString stringWithFormat:@"%lu of %lu completed",
+                                                            self.processedCount,
+                                                            self.tableView.selectedRowIndexes.count]];
+                        
+                        dispatch_group_leave(self.dispatchGroup);
                     });
                     
-                    dispatch_group_leave(self.dispatchGroup);
                 }];
             }
             
         }];
         
-        dispatch_group_notify(self.dispatchGroup, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+        dispatch_group_notify(self.dispatchGroup, dispatch_get_main_queue(), ^{
             NSLog(@"all processed");
+            
+            [self.processButton setEnabled:YES];
         });
         
     } else {
@@ -191,11 +231,11 @@
         id alert = [NSAlert new];
         [alert setIcon:[NSImage imageNamed:NSImageNameCaution]];
         [alert setMessageText:@"Please select files to process"];
-        [alert addButtonWithTitle:@"ok"];
+        [alert addButtonWithTitle:@"Ok"];
         
         [alert beginSheetModalForWindow:self.view.window completionHandler:^(NSModalResponse returnCode) {
             if (returnCode == NSModalResponseOK) {
-                NSLog(@"ok");
+                NSLog(@"Ok");
             }
         }];
     }
