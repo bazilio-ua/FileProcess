@@ -7,6 +7,7 @@
 
 #import "WindowController.h"
 #import "ViewController.h"
+#import "FileModel.h"
 #import "FileProcessXPCServiceProtocol.h"
 
 @interface WindowController ()
@@ -56,7 +57,13 @@
     
     [openPanel beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse result) {
         if (result == NSModalResponseOK) {
-            [self.contentViewController setRepresentedObject:openPanel.URLs];
+            
+            NSMutableArray<FileModel *> *files = [NSMutableArray array];
+            for (NSURL *url in openPanel.URLs) {
+                [files addObject:[[FileModel alloc] initWithURL:url]];
+            }
+            
+            [self.contentViewController setRepresentedObject:[files copy]];
         }
     }];
 }

@@ -7,7 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		422BE32825EA8B420083C46F /* ProgressTableCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 422BE32725EA8B420083C46F /* ProgressTableCellView.m */; };
+		422BE32825EA8B420083C46F /* StatusTableCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 422BE32725EA8B420083C46F /* StatusTableCellView.m */; };
+		422BE80D25EE7E9B0083C46F /* CheckTableCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 422BE80C25EE7E9B0083C46F /* CheckTableCellView.m */; };
+		422BE81325EE88380083C46F /* FileModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 422BE81225EE88380083C46F /* FileModel.m */; };
+		422BE82725EED3C60083C46F /* NameTableCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 422BE82625EED3C60083C46F /* NameTableCellView.m */; };
+		422BE82C25EED3DC0083C46F /* TypeTableCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 422BE82B25EED3DC0083C46F /* TypeTableCellView.m */; };
 		428804B225DFBD1000FE9A98 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 428804B125DFBD1000FE9A98 /* AppDelegate.m */; };
 		428804B425DFBD1200FE9A98 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 428804B325DFBD1200FE9A98 /* Assets.xcassets */; };
 		428804B725DFBD1200FE9A98 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 428804B525DFBD1200FE9A98 /* MainMenu.xib */; };
@@ -47,8 +51,17 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		422BE32625EA8B420083C46F /* ProgressTableCellView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProgressTableCellView.h; sourceTree = "<group>"; };
-		422BE32725EA8B420083C46F /* ProgressTableCellView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProgressTableCellView.m; sourceTree = "<group>"; };
+		422BE32625EA8B420083C46F /* StatusTableCellView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StatusTableCellView.h; sourceTree = "<group>"; };
+		422BE32725EA8B420083C46F /* StatusTableCellView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StatusTableCellView.m; sourceTree = "<group>"; };
+		422BE80B25EE7E9B0083C46F /* CheckTableCellView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CheckTableCellView.h; sourceTree = "<group>"; };
+		422BE80C25EE7E9B0083C46F /* CheckTableCellView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CheckTableCellView.m; sourceTree = "<group>"; };
+		422BE81125EE88380083C46F /* FileModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FileModel.h; sourceTree = "<group>"; };
+		422BE81225EE88380083C46F /* FileModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FileModel.m; sourceTree = "<group>"; };
+		422BE82525EED3C60083C46F /* NameTableCellView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NameTableCellView.h; sourceTree = "<group>"; };
+		422BE82625EED3C60083C46F /* NameTableCellView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NameTableCellView.m; sourceTree = "<group>"; };
+		422BE82A25EED3DC0083C46F /* TypeTableCellView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TypeTableCellView.h; sourceTree = "<group>"; };
+		422BE82B25EED3DC0083C46F /* TypeTableCellView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TypeTableCellView.m; sourceTree = "<group>"; };
+		422BE82F25EEFCEF0083C46F /* CellConfigurableProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CellConfigurableProtocol.h; sourceTree = "<group>"; };
 		428804AD25DFBD1000FE9A98 /* FileProcess.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FileProcess.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		428804B025DFBD1000FE9A98 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		428804B125DFBD1000FE9A98 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -121,14 +134,23 @@
 				428804B925DFBD1200FE9A98 /* main.m */,
 				428804BB25DFBD1200FE9A98 /* FileProcess.entitlements */,
 				42EA66F025E7CECD00A7EFA0 /* FileProcessorProtocol.h */,
+				422BE81125EE88380083C46F /* FileModel.h */,
+				422BE81225EE88380083C46F /* FileModel.m */,
 				428804C825DFC1B400FE9A98 /* WindowController.h */,
 				428804C925DFC1B400FE9A98 /* WindowController.m */,
 				428804CA25DFC1B400FE9A98 /* WindowController.xib */,
+				422BE82F25EEFCEF0083C46F /* CellConfigurableProtocol.h */,
 				428804C225DFC07F00FE9A98 /* ViewController.h */,
 				428804C325DFC07F00FE9A98 /* ViewController.m */,
 				428804C425DFC07F00FE9A98 /* ViewController.xib */,
-				422BE32625EA8B420083C46F /* ProgressTableCellView.h */,
-				422BE32725EA8B420083C46F /* ProgressTableCellView.m */,
+				422BE80B25EE7E9B0083C46F /* CheckTableCellView.h */,
+				422BE80C25EE7E9B0083C46F /* CheckTableCellView.m */,
+				422BE82525EED3C60083C46F /* NameTableCellView.h */,
+				422BE82625EED3C60083C46F /* NameTableCellView.m */,
+				422BE82A25EED3DC0083C46F /* TypeTableCellView.h */,
+				422BE82B25EED3DC0083C46F /* TypeTableCellView.m */,
+				422BE32625EA8B420083C46F /* StatusTableCellView.h */,
+				422BE32725EA8B420083C46F /* StatusTableCellView.m */,
 			);
 			path = FileProcess;
 			sourceTree = "<group>";
@@ -249,9 +271,13 @@
 			files = (
 				428804C525DFC07F00FE9A98 /* ViewController.m in Sources */,
 				428804CB25DFC1B400FE9A98 /* WindowController.m in Sources */,
-				422BE32825EA8B420083C46F /* ProgressTableCellView.m in Sources */,
+				422BE82725EED3C60083C46F /* NameTableCellView.m in Sources */,
+				422BE32825EA8B420083C46F /* StatusTableCellView.m in Sources */,
 				428804BA25DFBD1200FE9A98 /* main.m in Sources */,
+				422BE80D25EE7E9B0083C46F /* CheckTableCellView.m in Sources */,
+				422BE81325EE88380083C46F /* FileModel.m in Sources */,
 				428804B225DFBD1000FE9A98 /* AppDelegate.m in Sources */,
+				422BE82C25EED3DC0083C46F /* TypeTableCellView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -6,7 +6,12 @@
 //
 
 #import "ViewController.h"
-#import "ProgressTableCellView.h"
+#import "CheckTableCellView.h"
+#import "NameTableCellView.h"
+#import "TypeTableCellView.h"
+#import "StatusTableCellView.h"
+#import "FileModel.h"
+#import "CellConfigurableProtocol.h"
 
 @interface ViewController ()
 
@@ -16,6 +21,7 @@
 @property (weak) IBOutlet NSTextField *progressLabel;
 @property (weak) IBOutlet NSProgressIndicator *progressIndicator;
 
+@property (nonatomic, strong) NSArray<FileModel *> *checkedArray;
 @property (atomic, assign) NSUInteger processedCount;
 
 @property (nonatomic, strong, readonly) NSArray *fileKeys;
@@ -87,43 +93,24 @@
    viewForTableColumn:(NSTableColumn *)tableColumn
                   row:(NSInteger)row {
     
-    NSTableCellView *cell = nil;
-    NSString *identifier = nil;
-    NSString *text = nil;
-    NSImage *image = nil;
-    id file = self.representedObject[row];
-    NSDictionary *fileResources = [file resourceValuesForKeys:self.fileKeys error:nil];
-
-    if (tableColumn == tableView.tableColumns[0]) {
-        identifier = @"nameCell";
+    FileModel *file = self.representedObject[row];
+    
+    NSTableCellView<CellConfigureProtocol> *cell = nil;
+    if ([tableColumn.identifier isEqualToString:@"checkColumn"]) {
+        cell = [tableView makeViewWithIdentifier:@"checkCell" owner:self];
         
-        text = fileResources[NSURLLocalizedNameKey];
-        image = fileResources[NSURLEffectiveIconKey];
-
-    } else if (tableColumn == tableView.tableColumns[1]) {
-        identifier = @"typeCell";
+    } else if ([tableColumn.identifier isEqualToString:@"nameColumn"]) {
+        cell = [tableView makeViewWithIdentifier:@"nameCell" owner:self];
         
-        text = fileResources[NSURLTypeIdentifierKey];
+    }  else if ([tableColumn.identifier isEqualToString:@"typeColumn"]) {
+        cell = [tableView makeViewWithIdentifier:@"typeCell" owner:self];
         
-    } else if (tableColumn == tableView.tableColumns[2]) {
-        identifier = @"statusCell";
+    } else if ([tableColumn.identifier isEqualToString:@"statusColumn"]) {
+        cell = [tableView makeViewWithIdentifier:@"statusCell" owner:self];
         
-        text = @"unprocessed";
     }
     
-    if (file) {
-        cell = [tableView makeViewWithIdentifier:identifier owner:nil];
-        
-        cell.textField.stringValue = text;
-        cell.imageView.image = image;
-        
-        if ([identifier isEqualToString:@"statusCell"]) {
-            [((ProgressTableCellView *)cell).progressIndicator setHidden:YES];
-            
-            [((ProgressTableCellView *)cell).progressIndicator setMinValue:0];
-            [((ProgressTableCellView *)cell).progressIndicator setMaxValue:100];
-        }
-    }
+    [cell configureWithModel:file];
     
     return cell;
 }
@@ -133,31 +120,29 @@
 }
 
 - (void)onCellDoubleClick:(id)sender {
-    id file = self.representedObject[self.tableView.selectedRow];
+    FileModel *file = self.representedObject[self.tableView.selectedRow];
     if (file) {
-        NSDictionary *fileResources = [file resourceValuesForKeys:self.fileKeys error:nil];
-        
-        if ([fileResources[NSURLIsPackageKey] boolValue] == YES ) {
+        if ([file isPackage]) {
             NSLog(@"try open package");
-            [NSWorkspace.sharedWorkspace openURL:file];
+            [NSWorkspace.sharedWorkspace openURL:file.url];
         } else
-        if ([fileResources[NSURLIsDirectoryKey] boolValue] == YES) {
+        if ([file isDirectory]) {
             NSLog(@"try open dir");
             
-            NSDirectoryEnumerator *directoryEnumerator = [NSFileManager.defaultManager enumeratorAtURL:file
+            NSDirectoryEnumerator *directoryEnumerator = [NSFileManager.defaultManager enumeratorAtURL:file.url
                                                                             includingPropertiesForKeys:self.fileKeys
                                                                                                options:self.fileOption
                                                                                           errorHandler:nil];
             
-            NSMutableArray<NSURL *> *urls = [NSMutableArray new];
+            NSMutableArray<FileModel *> *files = [NSMutableArray array];
             for (NSURL *url in directoryEnumerator) {
-                [urls addObject:url];
+                [files addObject:[[FileModel alloc] initWithURL:url]];
             }
             
-            self.representedObject = [urls copy];
+            [self setRepresentedObject:[files copy]];
         } else {
             NSLog(@"try open file");
-            [NSWorkspace.sharedWorkspace openURL:file];
+            [NSWorkspace.sharedWorkspace openURL:file.url];
         }
     }
 }
@@ -169,7 +154,11 @@
         return;
     }
     
-    if (self.tableView.selectedRowIndexes.count) {
+    [self setCheckedArray:[self.representedObject filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(FileModel *file, NSDictionary *bindings) {
+        return [file isChecked];
+    }]]];
+    
+    if (self.checkedArray.count) {
         
         [self.processButton setEnabled:NO];
         
@@ -178,44 +167,45 @@
         [self.progressIndicator setHidden:NO];
         [self.progressIndicator setIndeterminate:NO];
         [self.progressIndicator setMinValue:0];
-        [self.progressIndicator setMaxValue:self.tableView.selectedRowIndexes.count];
+        [self.progressIndicator setMaxValue:self.checkedArray.count];
         [self.progressIndicator setDoubleValue:self.processedCount];
         
         [self.progressLabel setHidden:NO];
         [self.progressLabel setStringValue:[NSString stringWithFormat:@"%lu of %lu completed",
                                             self.processedCount,
-                                            self.tableView.selectedRowIndexes.count]];
+                                            self.checkedArray.count]];
         
         __weak typeof(self)this = self;
-        [self.tableView.selectedRowIndexes enumerateIndexesUsingBlock:^(NSUInteger index, BOOL *stop) {
+        [self.checkedArray enumerateObjectsUsingBlock:^(FileModel *file, NSUInteger index, BOOL *stop) {
             __strong typeof(self)self = this;
             
-            id file = self.representedObject[index];
-            if (file) {
-                dispatch_group_enter(self.dispatchGroup);
-                [self.delegate processFile:file onCompletion:^(NSURL *aFile, NSString *hash) {
+            dispatch_group_enter(self.dispatchGroup);
+            [self.delegate processFile:file.url onCompletion:^(NSURL *aFile, NSString *hash) {
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    NSLog(@"file: %@", aFile);
+                    NSLog(@"hash: %@", hash);
+                    NSUInteger index = [self.representedObject indexOfObjectPassingTest:^BOOL(FileModel *file, NSUInteger index, BOOL *stop) {
+                        return [file.url isEqual:aFile];
+                    }];
+                    NSLog(@"%lu", index);
+                    FileModel *file = self.representedObject[index];
+                    [file setStatus:hash];
                     
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        NSLog(@"file: %@", aFile);
-                        NSLog(@"hash: %@", hash);
-                        NSUInteger index = [self.representedObject indexOfObject:aFile];
-                        NSLog(@"%lu", index);
-                        
-                        ProgressTableCellView *cell = [self.tableView viewAtColumn:2 row:index makeIfNecessary:NO];
-                        cell.textField.stringValue = hash;
-                        
-                        self.processedCount += 1;
-                        [self.progressIndicator setDoubleValue:self.processedCount];
-                        
-                        [self.progressLabel setStringValue:[NSString stringWithFormat:@"%lu of %lu completed",
-                                                            self.processedCount,
-                                                            self.tableView.selectedRowIndexes.count]];
-                        
-                        dispatch_group_leave(self.dispatchGroup);
-                    });
+                    NSTableCellView<CellConfigureProtocol> *cell = [self.tableView viewAtColumn:3 row:index makeIfNecessary:NO];
+                    [cell configureWithModel:file];
                     
-                }];
-            }
+                    self.processedCount += 1;
+                    [self.progressIndicator setDoubleValue:self.processedCount];
+                    
+                    [self.progressLabel setStringValue:[NSString stringWithFormat:@"%lu of %lu completed",
+                                                        self.processedCount,
+                                                        self.checkedArray.count]];
+                    
+                    dispatch_group_leave(self.dispatchGroup);
+                });
+                
+            }];
             
         }];
         
@@ -248,25 +238,31 @@
     
     dispatch_async(dispatch_get_main_queue(), ^{
         NSLog(@"begin file processing");
-        NSUInteger index = [self.representedObject indexOfObject:aFile];
+        NSUInteger index = [self.representedObject indexOfObjectPassingTest:^BOOL(FileModel *file, NSUInteger index, BOOL *stop) {
+            return [file.url isEqual:aFile];
+        }];
         NSLog(@"%lu", index);
         
-        ProgressTableCellView *cell = [self.tableView viewAtColumn:2 row:index makeIfNecessary:NO];
-        [cell.progressIndicator setHidden:NO];
-        cell.textField.stringValue = @"";
+        FileModel *file = self.representedObject[index];
+        [file setStatus:kFileUpdated];
+        
+        NSTableCellView<CellUpdateProtocol> *cell = [self.tableView viewAtColumn:3 row:index makeIfNecessary:NO];
+        [cell updateWithModel:file];
+        [cell progressHidden:NO];
     });
 }
-
 
 - (void)updateProcessWithProgress:(float)percentage forFile:(NSURL *)aFile {
     
     dispatch_async(dispatch_get_main_queue(), ^{
         NSLog(@"file progress: %.2f", percentage);
-        NSUInteger index = [self.representedObject indexOfObject:aFile];
+        NSUInteger index = [self.representedObject indexOfObjectPassingTest:^BOOL(FileModel *file, NSUInteger index, BOOL *stop) {
+            return [file.url isEqual:aFile];
+        }];
         NSLog(@"%lu", index);
         
-        ProgressTableCellView *cell = [self.tableView viewAtColumn:2 row:index makeIfNecessary:NO];
-        [cell.progressIndicator setDoubleValue:percentage];
+        NSTableCellView<CellUpdateProtocol> *cell = [self.tableView viewAtColumn:3 row:index makeIfNecessary:NO];
+        [cell progressValue:percentage];
     });
 }
 
@@ -274,11 +270,13 @@
     
     dispatch_async(dispatch_get_main_queue(), ^{
         NSLog(@"complete file processing");
-        NSUInteger index = [self.representedObject indexOfObject:aFile];
+        NSUInteger index = [self.representedObject indexOfObjectPassingTest:^BOOL(FileModel *file, NSUInteger index, BOOL *stop) {
+            return [file.url isEqual:aFile];
+        }];
         NSLog(@"%lu", index);
         
-        ProgressTableCellView *cell = [self.tableView viewAtColumn:2 row:index makeIfNecessary:NO];
-        [cell.progressIndicator setHidden:YES];
+        NSTableCellView<CellUpdateProtocol> *cell = [self.tableView viewAtColumn:3 row:index makeIfNecessary:NO];
+        [cell progressHidden:YES];
     });
 }
 
