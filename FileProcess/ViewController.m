@@ -159,7 +159,9 @@
             __strong typeof(self)self = this;
             
             dispatch_group_enter(self.dispatchGroup);
-            [self.delegate processFile:file.url onCompletion:^(NSURL *aFile, NSString *hash) {
+            [self.delegate processFile:file.url
+                          withDeletion:file.shouldDelete
+                          onCompletion:^(NSURL *aFile, NSString *hash, BOOL isDeleted) {
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
                     NSLog(@"file: %@", aFile);

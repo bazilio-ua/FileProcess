@@ -71,11 +71,11 @@
 #pragma mark -
 #pragma mark <FileProcessorProtocol>
 
-- (void)processFile:(NSURL *)file onCompletion:(void (^)(NSURL *, NSString *))processedFile {
+- (void)processFile:(NSURL *)file withDeletion:(BOOL)shouldDelete onCompletion:(void (^)(NSURL *, NSString *, BOOL))processedFile {
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [[self.connectionToService remoteObjectProxy] processFile:file withReply:^(NSURL *aFile, NSString *hash) {
-            processedFile(aFile, hash);
+            processedFile(aFile, hash, NO);
         }];
     });
 }
