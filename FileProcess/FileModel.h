@@ -27,6 +27,8 @@ static NSString * const kFileDeleted = @"deleted";
 @property (nonatomic, strong) NSString *status;
 @property (nonatomic, assign, getter=isChecked) BOOL check;
 
+@property (nonatomic, assign, getter=shouldDelete) BOOL deleted;
+
 - (instancetype)initWithURL:(NSURL *)url;
 
 - (NSDirectoryEnumerator *)directoryEnumerator;

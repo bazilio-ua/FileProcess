@@ -52,6 +52,8 @@
         
         self.status = kFileUnprocessed;
         self.check = YES;
+        
+        self.deleted = NO;
     }
     
     return self;

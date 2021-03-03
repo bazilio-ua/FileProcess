@@ -6,10 +6,6 @@
 //
 
 #import "ViewController.h"
-#import "CheckTableCellView.h"
-#import "NameTableCellView.h"
-#import "TypeTableCellView.h"
-#import "StatusTableCellView.h"
 #import "FileModel.h"
 #import "CellConfigurableProtocol.h"
 
@@ -90,6 +86,9 @@
         
     } else if ([tableColumn.identifier isEqualToString:@"statusColumn"]) {
         cell = [tableView makeViewWithIdentifier:@"statusCell" owner:self];
+        
+    } else if ([tableColumn.identifier isEqualToString:@"deleteColumn"]) {
+        cell = [tableView makeViewWithIdentifier:@"deleteCell" owner:self];
         
     }
     

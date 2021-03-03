@@ -12,6 +12,7 @@
 		422BE81325EE88380083C46F /* FileModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 422BE81225EE88380083C46F /* FileModel.m */; };
 		422BE82725EED3C60083C46F /* NameTableCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 422BE82625EED3C60083C46F /* NameTableCellView.m */; };
 		422BE82C25EED3DC0083C46F /* TypeTableCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 422BE82B25EED3DC0083C46F /* TypeTableCellView.m */; };
+		422BE83425EF13C20083C46F /* DeleteTableCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 422BE83325EF13C20083C46F /* DeleteTableCellView.m */; };
 		428804B225DFBD1000FE9A98 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 428804B125DFBD1000FE9A98 /* AppDelegate.m */; };
 		428804B425DFBD1200FE9A98 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 428804B325DFBD1200FE9A98 /* Assets.xcassets */; };
 		428804B725DFBD1200FE9A98 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 428804B525DFBD1200FE9A98 /* MainMenu.xib */; };
@@ -62,6 +63,8 @@
 		422BE82A25EED3DC0083C46F /* TypeTableCellView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TypeTableCellView.h; sourceTree = "<group>"; };
 		422BE82B25EED3DC0083C46F /* TypeTableCellView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TypeTableCellView.m; sourceTree = "<group>"; };
 		422BE82F25EEFCEF0083C46F /* CellConfigurableProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CellConfigurableProtocol.h; sourceTree = "<group>"; };
+		422BE83225EF13C20083C46F /* DeleteTableCellView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeleteTableCellView.h; sourceTree = "<group>"; };
+		422BE83325EF13C20083C46F /* DeleteTableCellView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeleteTableCellView.m; sourceTree = "<group>"; };
 		428804AD25DFBD1000FE9A98 /* FileProcess.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FileProcess.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		428804B025DFBD1000FE9A98 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		428804B125DFBD1000FE9A98 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -151,6 +154,8 @@
 				422BE82B25EED3DC0083C46F /* TypeTableCellView.m */,
 				422BE32625EA8B420083C46F /* StatusTableCellView.h */,
 				422BE32725EA8B420083C46F /* StatusTableCellView.m */,
+				422BE83225EF13C20083C46F /* DeleteTableCellView.h */,
+				422BE83325EF13C20083C46F /* DeleteTableCellView.m */,
 			);
 			path = FileProcess;
 			sourceTree = "<group>";
@@ -269,6 +274,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				422BE83425EF13C20083C46F /* DeleteTableCellView.m in Sources */,
 				428804C525DFC07F00FE9A98 /* ViewController.m in Sources */,
 				428804CB25DFC1B400FE9A98 /* WindowController.m in Sources */,
 				422BE82725EED3C60083C46F /* NameTableCellView.m in Sources */,

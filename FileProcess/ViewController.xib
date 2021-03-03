@@ -27,7 +27,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowHeight="24" rowSizeStyle="automatic" headerView="VJI-NR-IxH" viewBased="YES" id="vYk-fS-iBP">
-                                <rect key="frame" x="0.0" y="0.0" width="1158" height="490"/>
+                                <rect key="frame" x="0.0" y="0.0" width="1161" height="490"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <size key="intercellSpacing" width="17" height="0.0"/>
                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -51,7 +51,7 @@
                                                 <subviews>
                                                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rbL-P3-SST">
                                                         <rect key="frame" x="0.0" y="0.0" width="24" height="24"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                        <autoresizingMask key="autoresizingMask"/>
                                                         <buttonCell key="cell" type="check" bezelStyle="regularSquare" imagePosition="left" inset="2" id="Ojv-UD-YMK">
                                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                             <font key="font" metaFont="system"/>
@@ -137,7 +137,7 @@
                                             </tableCellView>
                                         </prototypeCellViews>
                                     </tableColumn>
-                                    <tableColumn identifier="statusColumn" width="649" minWidth="40" maxWidth="1000" id="18B-AT-o8G">
+                                    <tableColumn identifier="statusColumn" width="567" minWidth="40" maxWidth="1000" id="18B-AT-o8G">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Status">
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -150,15 +150,15 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView identifier="statusCell" id="nEv-Mi-cuH" customClass="StatusTableCellView">
-                                                <rect key="frame" x="502" y="0.0" width="646" height="24"/>
+                                                <rect key="frame" x="502" y="0.0" width="567" height="24"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <progressIndicator fixedFrame="YES" maxValue="100" doubleValue="50" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="mRm-Ch-AI4">
-                                                        <rect key="frame" x="0.0" y="2" width="646" height="20"/>
+                                                        <rect key="frame" x="0.0" y="2" width="567" height="20"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                     </progressIndicator>
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9Pv-lr-JUV">
-                                                        <rect key="frame" x="0.0" y="4" width="646" height="16"/>
+                                                        <rect key="frame" x="0.0" y="4" width="567" height="16"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="Wtn-Sc-HhN">
                                                             <font key="font" usesAppearanceFont="YES"/>
@@ -174,6 +174,40 @@
                                             </tableCellView>
                                         </prototypeCellViews>
                                     </tableColumn>
+                                    <tableColumn identifier="deleteColumn" width="69" minWidth="69" maxWidth="1000" id="Dr3-kw-q1z">
+                                        <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="DELETE">
+                                            <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </tableHeaderCell>
+                                        <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" title="Text Cell" id="xdv-ya-7HV">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                        <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
+                                        <prototypeCellViews>
+                                            <tableCellView identifier="deleteCell" id="kyt-tL-F3s" customClass="DeleteTableCellView">
+                                                <rect key="frame" x="1086" y="0.0" width="66" height="24"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                <subviews>
+                                                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eI7-FO-fyy">
+                                                        <rect key="frame" x="0.0" y="0.0" width="66" height="24"/>
+                                                        <autoresizingMask key="autoresizingMask"/>
+                                                        <buttonCell key="cell" type="check" title="Delete" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="oSS-xv-WaK">
+                                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                            <font key="font" metaFont="system"/>
+                                                        </buttonCell>
+                                                        <connections>
+                                                            <action selector="onDeleteTapped:" target="kyt-tL-F3s" id="PNq-Ia-BnR"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                                <connections>
+                                                    <outlet property="deleteButton" destination="eI7-FO-fyy" id="dyI-jt-pT7"/>
+                                                </connections>
+                                            </tableCellView>
+                                        </prototypeCellViews>
+                                    </tableColumn>
                                 </tableColumns>
                             </tableView>
                         </subviews>
@@ -182,7 +216,7 @@
                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="440" id="JZD-kI-m1j"/>
                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="240" id="ocT-Lb-BGr"/>
                     </constraints>
-                    <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="0z9-n9-FWR">
+                    <scroller key="horizontalScroller" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="0z9-n9-FWR">
                         <rect key="frame" x="1" y="503" width="1158" height="16"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
@@ -191,7 +225,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                     <tableHeaderView key="headerView" wantsLayer="YES" id="VJI-NR-IxH">
-                        <rect key="frame" x="0.0" y="0.0" width="1158" height="28"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1161" height="28"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </tableHeaderView>
                 </scrollView>
