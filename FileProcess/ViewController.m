@@ -173,8 +173,10 @@
                     FileModel *file = self.representedObject[index];
                     if (isDeleted) {
                         [file setStatus:kFileDeleted];
-                    } else {
+                    } else if (hash) {
                         [file setStatus:hash];
+                    } else {
+                        [file setStatus:kFileDeleted];
                     }
                     
                     NSTableCellView<CellConfigureProtocol> *cell = [self.tableView viewAtColumn:3 row:index makeIfNecessary:NO];

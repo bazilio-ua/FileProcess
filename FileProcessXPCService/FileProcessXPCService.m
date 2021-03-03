@@ -76,7 +76,20 @@
 
 - (void)deleteFile:(NSURL *)aFile onCompletion:(void (^)(NSURL *, BOOL))replyFile {
     
-    replyFile([aFile copy], YES);
+    NSLog(@"started... ->");
+    [[self.connection remoteObjectProxy] startedProcessForFile:aFile];
+    
+    BOOL result = [NSFileManager.defaultManager removeItemAtURL:aFile error:nil];
+    
+    [[self.connection remoteObjectProxy] updateProcessWithProgress:result ? 100 : 0 forFile:aFile];
+    
+    NSLog(@"-> finished.");
+    [[self.connection remoteObjectProxy] finishedProcessForFile:aFile];
+    
+    NSLog(@"file: %@", aFile);
+    NSLog(@"delete result: %@", result ? @"YES" : @"NO");
+    
+    replyFile([aFile copy], result);
 }
 
 #pragma mark -
