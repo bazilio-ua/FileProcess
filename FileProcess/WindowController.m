@@ -74,8 +74,10 @@
 - (void)processFile:(NSURL *)file withDeletion:(BOOL)shouldDelete onCompletion:(void (^)(NSURL *, NSString *, BOOL))processedFile {
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [[self.connectionToService remoteObjectProxy] processFile:file withReply:^(NSURL *aFile, NSString *hash) {
-            processedFile(aFile, hash, NO);
+        [[self.connectionToService remoteObjectProxy] processFile:file
+                                                     withDeletion:shouldDelete
+                                                        withReply:^(NSURL *aFile, NSString *hash, BOOL isDeleted) {
+            processedFile(aFile, hash, isDeleted);
         }];
     });
 }

@@ -74,17 +74,30 @@
     replyFile([aFile copy], [hash copy]);
 }
 
+- (void)deleteFile:(NSURL *)aFile onCompletion:(void (^)(NSURL *, BOOL))replyFile {
+    
+    replyFile([aFile copy], YES);
+}
+
 #pragma mark -
 #pragma mark <FileProcessXPCServiceProtocol>
 
 // This implements the example protocol. Replace the body of this class with the implementation of this service's protocol.
 
-- (void)processFile:(NSURL *)aFile withReply:(void (^)(NSURL *, NSString *))reply {
+- (void)processFile:(NSURL *)aFile withDeletion:(BOOL)shouldDelete withReply:(void (^)(NSURL *, NSString *, BOOL))reply {
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [self processFile:aFile onCompletion:^(NSURL *aFile, NSString *hash) {
-            reply(aFile, hash);
-        }];
+        
+        if (shouldDelete == YES) {
+            [self deleteFile:aFile onCompletion:^(NSURL *aFile, BOOL isDeleted) {
+                reply(aFile, nil, isDeleted);
+            }];
+        } else  {
+            [self processFile:aFile onCompletion:^(NSURL *aFile, NSString *hash) {
+                reply(aFile, hash, NO);
+            }];
+        }
+        
     });
 }
 

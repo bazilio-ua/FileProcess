@@ -11,7 +11,7 @@
 @protocol FileProcessXPCServiceProtocol
 
 // Replace the API of this protocol with an API appropriate to the service you are vending.
-- (void)processFile:(NSURL *)aFile withReply:(void (^)(NSURL *, NSString *))reply;
+- (void)processFile:(NSURL *)aFile withDeletion:(BOOL)shouldDelete withReply:(void (^)(NSURL *, NSString *, BOOL))reply;
 
 @end
 

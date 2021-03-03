@@ -171,7 +171,11 @@
                     }];
                     NSLog(@"%lu", index);
                     FileModel *file = self.representedObject[index];
-                    [file setStatus:hash];
+                    if (isDeleted) {
+                        [file setStatus:kFileDeleted];
+                    } else {
+                        [file setStatus:hash];
+                    }
                     
                     NSTableCellView<CellConfigureProtocol> *cell = [self.tableView viewAtColumn:3 row:index makeIfNecessary:NO];
                     [cell configureWithModel:file];
