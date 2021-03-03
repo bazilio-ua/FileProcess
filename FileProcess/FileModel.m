@@ -12,6 +12,7 @@
 @property (nonatomic, strong) NSDictionary *fileResources;
 
 + (NSArray *)fileKeys;
++ (NSDirectoryEnumerationOptions)fileOption;
 
 @end
 
@@ -25,6 +26,10 @@
              NSURLFileSizeKey,
              NSURLContentModificationDateKey,
              NSURLTypeIdentifierKey];
+}
+
++ (NSDirectoryEnumerationOptions)fileOption {
+    return NSDirectoryEnumerationSkipsHiddenFiles | NSDirectoryEnumerationSkipsSubdirectoryDescendants | NSDirectoryEnumerationSkipsPackageDescendants;
 }
 
 - (instancetype)initWithURL:(NSURL *)url {
@@ -52,5 +57,16 @@
     return self;
 }
 
+- (NSDirectoryEnumerator *)directoryEnumerator {
+    NSDirectoryEnumerator *result = nil;
+    if ([self isDirectory]) {
+        result = [NSFileManager.defaultManager enumeratorAtURL:self.url
+                                    includingPropertiesForKeys:FileModel.fileKeys
+                                                       options:FileModel.fileOption
+                                                  errorHandler:nil];
+    }
+    
+    return result;
+}
 
 @end

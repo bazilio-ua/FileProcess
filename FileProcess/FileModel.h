@@ -15,8 +15,6 @@ static NSString * const kFileDeleted = @"deleted";
 
 @interface FileModel : NSObject
 
-- (instancetype)initWithURL:(NSURL *)url;
-
 @property (nonatomic, copy) NSURL *url;
 @property (nonatomic, copy) NSString *name;
 @property (nonatomic, copy) NSString *type;
@@ -28,6 +26,10 @@ static NSString * const kFileDeleted = @"deleted";
 
 @property (nonatomic, strong) NSString *status;
 @property (nonatomic, assign, getter=isChecked) BOOL check;
+
+- (instancetype)initWithURL:(NSURL *)url;
+
+- (NSDirectoryEnumerator *)directoryEnumerator;
 
 @end
 

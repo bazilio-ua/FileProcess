@@ -24,28 +24,11 @@
 @property (nonatomic, strong) NSArray<FileModel *> *checkedArray;
 @property (atomic, assign) NSUInteger processedCount;
 
-@property (nonatomic, strong, readonly) NSArray *fileKeys;
-@property (nonatomic, assign, readonly) NSDirectoryEnumerationOptions fileOption;
-
 @property (nonatomic, strong) dispatch_group_t dispatchGroup;
 
 @end
 
 @implementation ViewController
-
-- (NSArray *)fileKeys {
-    return @[NSURLLocalizedNameKey,
-             NSURLEffectiveIconKey,
-             NSURLIsPackageKey,
-             NSURLIsDirectoryKey,
-             NSURLFileSizeKey,
-             NSURLContentModificationDateKey,
-             NSURLTypeIdentifierKey];
-}
-
-- (NSDirectoryEnumerationOptions)fileOption {
-    return NSDirectoryEnumerationSkipsHiddenFiles | NSDirectoryEnumerationSkipsSubdirectoryDescendants | NSDirectoryEnumerationSkipsPackageDescendants;
-}
 
 - (id)representedObject {
     return [super representedObject];
@@ -129,10 +112,7 @@
         if ([file isDirectory]) {
             NSLog(@"try open dir");
             
-            NSDirectoryEnumerator *directoryEnumerator = [NSFileManager.defaultManager enumeratorAtURL:file.url
-                                                                            includingPropertiesForKeys:self.fileKeys
-                                                                                               options:self.fileOption
-                                                                                          errorHandler:nil];
+            NSDirectoryEnumerator *directoryEnumerator = [file directoryEnumerator];
             
             NSMutableArray<FileModel *> *files = [NSMutableArray array];
             for (NSURL *url in directoryEnumerator) {
