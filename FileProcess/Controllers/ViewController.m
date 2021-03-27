@@ -104,11 +104,11 @@
     FileModel *file = self.representedObject[self.tableView.selectedRow];
     if (file) {
         if ([file isPackage]) {
-            NSLog(@"try open package");
+            NSLog(@"try open package %@", file.url.lastPathComponent);
             [NSWorkspace.sharedWorkspace openURL:file.url];
         } else
         if ([file isDirectory]) {
-            NSLog(@"try open dir");
+            NSLog(@"try open dir %@", file.url.lastPathComponent);
             
             NSDirectoryEnumerator *directoryEnumerator = [file directoryEnumerator];
             
@@ -119,7 +119,7 @@
             
             [self setRepresentedObject:[files copy]];
         } else {
-            NSLog(@"try open file");
+            NSLog(@"try open file %@", file.url.lastPathComponent);
             [NSWorkspace.sharedWorkspace openURL:file.url];
         }
     }
@@ -127,7 +127,7 @@
 
 - (IBAction)processClicked:(id)sender {
     
-    if (self.representedObject == nil) {
+    if ([self.representedObject count] == 0) {
         [self.delegate openFile:sender];
         return;
     }
@@ -137,84 +137,93 @@
     }]]];
     
     if (self.checkedArray.count) {
-        
-        [self.processButton setEnabled:NO];
-        
-        self.processedCount = 0;
-        
-        [self.progressIndicator setHidden:NO];
-        [self.progressIndicator setIndeterminate:NO];
-        [self.progressIndicator setMinValue:0];
-        [self.progressIndicator setMaxValue:self.checkedArray.count];
-        [self.progressIndicator setDoubleValue:self.processedCount];
-        
-        [self.progressLabel setHidden:NO];
-        [self.progressLabel setStringValue:[NSString stringWithFormat:@"%lu of %lu completed",
-                                            self.processedCount,
-                                            self.checkedArray.count]];
-        
-        __weak typeof(self)this = self;
-        [self.checkedArray enumerateObjectsUsingBlock:^(FileModel *file, NSUInteger index, BOOL *stop) {
-            __strong typeof(self)self = this;
-            
-            dispatch_group_enter(self.dispatchGroup);
-            [self.delegate processFile:file.url
-                          withDeletion:file.shouldDelete
-                          onCompletion:^(NSURL *aFile, NSString *hash, BOOL isDeleted) {
-                
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    NSLog(@"file: %@", aFile);
-                    NSLog(@"hash: %@", hash);
-                    NSUInteger index = [self.representedObject indexOfObjectPassingTest:^BOOL(FileModel *file, NSUInteger index, BOOL *stop) {
-                        return [file.url isEqual:aFile];
-                    }];
-
-                    FileModel *file = self.representedObject[index];
-                    if (isDeleted) {
-                        [file setStatus:kFileDeleted];
-                    } else if (hash) {
-                        [file setStatus:hash];
-                    } else {
-                        [file setStatus:kFileDeleted];
-                    }
-                    
-                    NSTableCellView<CellConfigureProtocol> *cell = [self.tableView viewAtColumn:3 row:index makeIfNecessary:NO];
-                    [cell configureWithModel:file];
-                    
-                    self.processedCount += 1;
-                    [self.progressIndicator setDoubleValue:self.processedCount];
-                    
-                    [self.progressLabel setStringValue:[NSString stringWithFormat:@"%lu of %lu completed",
-                                                        self.processedCount,
-                                                        self.checkedArray.count]];
-                    
-                    dispatch_group_leave(self.dispatchGroup);
-                });
-                
-            }];
-            
-        }];
-        
-        dispatch_group_notify(self.dispatchGroup, dispatch_get_main_queue(), ^{
-            NSLog(@"all processed");
-            
-            [self.processButton setEnabled:YES];
-        });
-        
+        [self performCheckedProcessing];
     } else {
-        NSLog(@"please select files to process");
-        
-        id alert = [NSAlert new];
-        [alert setIcon:[NSImage imageNamed:NSImageNameCaution]];
-        [alert setMessageText:@"Please select files to process"];
-        [alert addButtonWithTitle:@"Ok"];
-        
-        [alert beginSheetModalForWindow:self.view.window completionHandler:^(NSModalResponse returnCode) {
-            if (returnCode == NSModalResponseOK) {
-                NSLog(@"Ok");
-            }
-        }];
+        [self showUnselectedFilesAlert];
     }
+}
+
+#pragma mark -
+#pragma mark Private
+
+- (void)performCheckedProcessing {
+    NSLog(@"start processing files");
+    
+    [self.processButton setEnabled:NO];
+    
+    self.processedCount = 0;
+    
+    [self.progressIndicator setHidden:NO];
+    [self.progressIndicator setIndeterminate:NO];
+    [self.progressIndicator setMinValue:0];
+    [self.progressIndicator setMaxValue:self.checkedArray.count];
+    [self.progressIndicator setDoubleValue:self.processedCount];
+    
+    [self.progressLabel setHidden:NO];
+    [self.progressLabel setStringValue:[NSString stringWithFormat:@"%lu of %lu completed",
+                                        self.processedCount,
+                                        self.checkedArray.count]];
+    
+    __weak typeof(self)this = self;
+    [self.checkedArray enumerateObjectsUsingBlock:^(FileModel *file, NSUInteger index, BOOL *stop) {
+        __strong typeof(self)self = this;
+        
+        dispatch_group_enter(self.dispatchGroup);
+        [self.delegate processFile:file.url
+                      withDeletion:file.shouldDelete
+                      onCompletion:^(NSURL *aFile, NSString *hash, BOOL isDeleted) {
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                NSUInteger index = [self.representedObject indexOfObjectPassingTest:^BOOL(FileModel *file, NSUInteger index, BOOL *stop) {
+                    return [file.url isEqual:aFile];
+                }];
+
+                FileModel *file = self.representedObject[index];
+                if (isDeleted) {
+                    [file setStatus:kFileDeleted];
+                } else if (hash) {
+                    [file setStatus:hash];
+                } else {
+                    [file setStatus:kFileDeleted];
+                }
+                
+                NSTableCellView<CellConfigureProtocol> *cell = [self.tableView viewAtColumn:3 row:index makeIfNecessary:NO];
+                [cell configureWithModel:file];
+                
+                self.processedCount += 1;
+                [self.progressIndicator setDoubleValue:self.processedCount];
+                
+                [self.progressLabel setStringValue:[NSString stringWithFormat:@"%lu of %lu completed",
+                                                    self.processedCount,
+                                                    self.checkedArray.count]];
+                
+                dispatch_group_leave(self.dispatchGroup);
+            });
+            
+        }];
+        
+    }];
+    
+    dispatch_group_notify(self.dispatchGroup, dispatch_get_main_queue(), ^{
+        NSLog(@"file processing completed");
+        
+        [self.processButton setEnabled:YES];
+    });
+}
+
+- (void)showUnselectedFilesAlert {
+    NSLog(@"please select files to process");
+    
+    id alert = [NSAlert new];
+    [alert setIcon:[NSImage imageNamed:NSImageNameCaution]];
+    [alert setMessageText:@"Please select files to process"];
+    [alert addButtonWithTitle:@"Ok"];
+    
+    [alert beginSheetModalForWindow:self.view.window completionHandler:^(NSModalResponse returnCode) {
+        if (returnCode == NSModalResponseOK) {
+            NSLog(@"Ok");
+        }
+    }];
 }
 
 #pragma mark -
