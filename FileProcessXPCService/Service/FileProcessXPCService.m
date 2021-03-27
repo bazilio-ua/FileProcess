@@ -35,7 +35,7 @@
     NSInteger bufferSize = 1024 * 1024;
     unsigned char digest[CC_SHA256_DIGEST_LENGTH];
     
-    NSLog(@"started... ->");
+    NSLog(@"file %@ processing started... ->", aFile.lastPathComponent);
     [[self.connection remoteObjectProxy] startedProcessForFile:aFile];
     
     CC_SHA256_CTX context;
@@ -46,7 +46,7 @@
             size_t offset = [file offsetInFile];
             float percent = (float)offset / size * 100;
             
-            NSLog(@"percent: %.2f%%", percent);
+            NSLog(@"file %@ processing progress: %.2f%%", aFile.lastPathComponent, percent);
             [[self.connection remoteObjectProxy] updateProcessWithProgress:percent forFile:aFile];
             
             id chunkData = [file readDataOfLength:bufferSize];
@@ -58,7 +58,7 @@
         }
     }
     
-    NSLog(@"-> finished.");
+    NSLog(@"file %@ processing -> finished.", aFile.lastPathComponent);
     [[self.connection remoteObjectProxy] finishedProcessForFile:aFile];
     
     CC_SHA256_Final(digest, &context);
@@ -68,26 +68,22 @@
         [hash appendFormat:@"%02x", digest[iterator]];
     }
     
-    NSLog(@"file: %@", aFile);
-    NSLog(@"hash: %@", hash);
+    NSLog(@"file %@ SHA256 hash is (%@)", aFile.lastPathComponent, hash);
     
     replyFile([aFile copy], [hash copy]);
 }
 
 - (void)deleteFile:(NSURL *)aFile onCompletion:(void (^)(NSURL *, BOOL))replyFile {
     
-    NSLog(@"started... ->");
+    NSLog(@"file %@ deletion started... ->", aFile.lastPathComponent);
     [[self.connection remoteObjectProxy] startedProcessForFile:aFile];
     
     BOOL result = [NSFileManager.defaultManager removeItemAtURL:aFile error:nil];
     
-    [[self.connection remoteObjectProxy] updateProcessWithProgress:result ? 100 : 0 forFile:aFile];
-    
-    NSLog(@"-> finished.");
+    NSLog(@"file %@ deleting -> finished.", aFile.lastPathComponent);
     [[self.connection remoteObjectProxy] finishedProcessForFile:aFile];
     
-    NSLog(@"file: %@", aFile);
-    NSLog(@"delete result: %@", result ? @"YES" : @"NO");
+    NSLog(@"file %@ %@", aFile.lastPathComponent, result ? @"is deleted." : @"deletion error.");
     
     replyFile([aFile copy], result);
 }

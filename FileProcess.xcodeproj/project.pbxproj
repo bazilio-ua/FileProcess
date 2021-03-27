@@ -131,6 +131,7 @@
 			isa = PBXGroup;
 			children = (
 				429FA018260FAE6D00AFE141 /* Core */,
+				429FA036260FB9FE00AFE141 /* Protocols */,
 				429FA021260FAF1600AFE141 /* Models */,
 				429FA01B260FAEB900AFE141 /* Controllers */,
 			);
@@ -156,7 +157,6 @@
 				428804B825DFBD1200FE9A98 /* Info.plist */,
 				428804B925DFBD1200FE9A98 /* main.m */,
 				428804BB25DFBD1200FE9A98 /* FileProcess.entitlements */,
-				42EA66F025E7CECD00A7EFA0 /* FileProcessorProtocol.h */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -164,7 +164,8 @@
 		429FA01B260FAEB900AFE141 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				429FA033260FB44A00AFE141 /* CellsConfigurableProtocols */,
+				429FA033260FB44A00AFE141 /* CellProtocols */,
+				429FA03D260FBAD500AFE141 /* CellModels */,
 				429FA01E260FAECB00AFE141 /* Cells */,
 				428804C825DFC1B400FE9A98 /* WindowController.h */,
 				428804C925DFC1B400FE9A98 /* WindowController.m */,
@@ -230,12 +231,27 @@
 			path = SharedProtocols;
 			sourceTree = "<group>";
 		};
-		429FA033260FB44A00AFE141 /* CellsConfigurableProtocols */ = {
+		429FA033260FB44A00AFE141 /* CellProtocols */ = {
 			isa = PBXGroup;
 			children = (
 				422BE82F25EEFCEF0083C46F /* CellConfigurableProtocol.h */,
 			);
-			path = CellsConfigurableProtocols;
+			path = CellProtocols;
+			sourceTree = "<group>";
+		};
+		429FA036260FB9FE00AFE141 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				42EA66F025E7CECD00A7EFA0 /* FileProcessorProtocol.h */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		429FA03D260FBAD500AFE141 /* CellModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = CellModels;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

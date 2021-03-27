@@ -223,7 +223,7 @@
 - (void)startedProcessForFile:(NSURL *)aFile {
     
     dispatch_async(dispatch_get_main_queue(), ^{
-        NSLog(@"begin file processing");
+//        NSLog(@"begin file processing");
         NSUInteger index = [self.representedObject indexOfObjectPassingTest:^BOOL(FileModel *file, NSUInteger index, BOOL *stop) {
             return [file.url isEqual:aFile];
         }];
@@ -240,7 +240,7 @@
 - (void)updateProcessWithProgress:(float)percentage forFile:(NSURL *)aFile {
     
     dispatch_async(dispatch_get_main_queue(), ^{
-        NSLog(@"file progress: %.2f", percentage);
+//        NSLog(@"file progress: %.2f", percentage);
         NSUInteger index = [self.representedObject indexOfObjectPassingTest:^BOOL(FileModel *file, NSUInteger index, BOOL *stop) {
             return [file.url isEqual:aFile];
         }];
@@ -253,7 +253,7 @@
 - (void)finishedProcessForFile:(NSURL *)aFile {
     
     dispatch_async(dispatch_get_main_queue(), ^{
-        NSLog(@"complete file processing");
+//        NSLog(@"complete file processing");
         NSUInteger index = [self.representedObject indexOfObjectPassingTest:^BOOL(FileModel *file, NSUInteger index, BOOL *stop) {
             return [file.url isEqual:aFile];
         }];
