@@ -29,7 +29,7 @@
         [alert setMessageText:@"You are sure?"];
         [alert addButtonWithTitle:@"No"];
         [alert addButtonWithTitle:@"Yes"];
-        [alert setInformativeText:@"Deleted file cannot be restored"];
+        [alert setInformativeText:@"File should be deleted after 'proccess' clicked and cannot be restored"];
         [alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
             if (returnCode == 1001) {
                 [self.model setDeleted:(sender.state == NSControlStateValueOn) ? YES : NO];

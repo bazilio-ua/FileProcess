@@ -35,7 +35,7 @@
     NSInteger bufferSize = 1024 * 1024;
     unsigned char digest[CC_SHA256_DIGEST_LENGTH];
     
-    NSLog(@"file %@ processing started... ->", aFile.lastPathComponent);
+    NSLog(@"file %@ processing -> started...", aFile.lastPathComponent);
     [[self.connection remoteObjectProxy] startedProcessForFile:aFile];
     
     CC_SHA256_CTX context;
@@ -75,7 +75,7 @@
 
 - (void)deleteFile:(NSURL *)aFile onCompletion:(void (^)(NSURL *, BOOL))replyFile {
     
-    NSLog(@"file %@ deletion started... ->", aFile.lastPathComponent);
+    NSLog(@"file %@ deleting -> started...", aFile.lastPathComponent);
     [[self.connection remoteObjectProxy] startedProcessForFile:aFile];
     
     BOOL result = [NSFileManager.defaultManager removeItemAtURL:aFile error:nil];
