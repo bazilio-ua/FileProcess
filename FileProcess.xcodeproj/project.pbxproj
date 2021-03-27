@@ -164,6 +164,7 @@
 		429FA01B260FAEB900AFE141 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				429FA033260FB44A00AFE141 /* CellsConfigurableProtocols */,
 				429FA01E260FAECB00AFE141 /* Cells */,
 				428804C825DFC1B400FE9A98 /* WindowController.h */,
 				428804C925DFC1B400FE9A98 /* WindowController.m */,
@@ -178,7 +179,6 @@
 		429FA01E260FAECB00AFE141 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				422BE82F25EEFCEF0083C46F /* CellConfigurableProtocol.h */,
 				422BE80B25EE7E9B0083C46F /* CheckTableCellView.h */,
 				422BE80C25EE7E9B0083C46F /* CheckTableCellView.m */,
 				422BE82525EED3C60083C46F /* NameTableCellView.h */,
@@ -228,6 +228,14 @@
 				428804EE25E2D9EA00FE9A98 /* FileProcessXPCServiceProtocol.h */,
 			);
 			path = SharedProtocols;
+			sourceTree = "<group>";
+		};
+		429FA033260FB44A00AFE141 /* CellsConfigurableProtocols */ = {
+			isa = PBXGroup;
+			children = (
+				422BE82F25EEFCEF0083C46F /* CellConfigurableProtocol.h */,
+			);
+			path = CellsConfigurableProtocols;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
