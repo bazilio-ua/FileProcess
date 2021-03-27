@@ -43,7 +43,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do view setup here.
     
     [self.tableView setDelegate:self];
     [self.tableView setDataSource:self];
@@ -169,7 +168,7 @@
                     NSUInteger index = [self.representedObject indexOfObjectPassingTest:^BOOL(FileModel *file, NSUInteger index, BOOL *stop) {
                         return [file.url isEqual:aFile];
                     }];
-//                    NSLog(@"%lu", index);
+
                     FileModel *file = self.representedObject[index];
                     if (isDeleted) {
                         [file setStatus:kFileDeleted];
@@ -228,7 +227,6 @@
         NSUInteger index = [self.representedObject indexOfObjectPassingTest:^BOOL(FileModel *file, NSUInteger index, BOOL *stop) {
             return [file.url isEqual:aFile];
         }];
-//        NSLog(@"%lu", index);
         
         FileModel *file = self.representedObject[index];
         [file setStatus:kFileUpdated];
@@ -246,7 +244,6 @@
         NSUInteger index = [self.representedObject indexOfObjectPassingTest:^BOOL(FileModel *file, NSUInteger index, BOOL *stop) {
             return [file.url isEqual:aFile];
         }];
-//        NSLog(@"%lu", index);
         
         NSTableCellView<CellUpdateProtocol> *cell = [self.tableView viewAtColumn:3 row:index makeIfNecessary:NO];
         [cell progressValue:percentage];
@@ -260,7 +257,6 @@
         NSUInteger index = [self.representedObject indexOfObjectPassingTest:^BOOL(FileModel *file, NSUInteger index, BOOL *stop) {
             return [file.url isEqual:aFile];
         }];
-//        NSLog(@"%lu", index);
         
         NSTableCellView<CellUpdateProtocol> *cell = [self.tableView viewAtColumn:3 row:index makeIfNecessary:NO];
         [cell progressHidden:YES];

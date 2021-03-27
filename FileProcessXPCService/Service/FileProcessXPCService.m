@@ -95,8 +95,6 @@
 #pragma mark -
 #pragma mark <FileProcessXPCServiceProtocol>
 
-// This implements the example protocol. Replace the body of this class with the implementation of this service's protocol.
-
 - (void)processFile:(NSURL *)aFile withDeletion:(BOOL)shouldDelete withReply:(void (^)(NSURL *, NSString *, BOOL))reply {
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
