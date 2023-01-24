@@ -130,7 +130,13 @@
 		428804AF25DFBD1000FE9A98 /* FileProcess */ = {
 			isa = PBXGroup;
 			children = (
-				429FA018260FAE6D00AFE141 /* Core */,
+				428804B025DFBD1000FE9A98 /* AppDelegate.h */,
+				428804B125DFBD1000FE9A98 /* AppDelegate.m */,
+				428804B325DFBD1200FE9A98 /* Assets.xcassets */,
+				428804B525DFBD1200FE9A98 /* MainMenu.xib */,
+				428804B825DFBD1200FE9A98 /* Info.plist */,
+				428804B925DFBD1200FE9A98 /* main.m */,
+				428804BB25DFBD1200FE9A98 /* FileProcess.entitlements */,
 				429FA036260FB9FE00AFE141 /* Protocols */,
 				429FA021260FAF1600AFE141 /* Models */,
 				429FA01B260FAEB900AFE141 /* Controllers */,
@@ -141,31 +147,19 @@
 		428804ED25E2D9EA00FE9A98 /* FileProcessXPCService */ = {
 			isa = PBXGroup;
 			children = (
+				428804F225E2D9EB00FE9A98 /* main.m */,
+				42CFE1A025E9C0A200D7452B /* ServiceDelegate.h */,
+				42CFE1A125E9C0A200D7452B /* ServiceDelegate.m */,
+				428804F425E2D9EB00FE9A98 /* Info.plist */,
 				429FA027260FAF9D00AFE141 /* Service */,
-				429FA024260FAF8600AFE141 /* Core */,
 			);
 			path = FileProcessXPCService;
-			sourceTree = "<group>";
-		};
-		429FA018260FAE6D00AFE141 /* Core */ = {
-			isa = PBXGroup;
-			children = (
-				428804B025DFBD1000FE9A98 /* AppDelegate.h */,
-				428804B125DFBD1000FE9A98 /* AppDelegate.m */,
-				428804B325DFBD1200FE9A98 /* Assets.xcassets */,
-				428804B525DFBD1200FE9A98 /* MainMenu.xib */,
-				428804B825DFBD1200FE9A98 /* Info.plist */,
-				428804B925DFBD1200FE9A98 /* main.m */,
-				428804BB25DFBD1200FE9A98 /* FileProcess.entitlements */,
-			);
-			path = Core;
 			sourceTree = "<group>";
 		};
 		429FA01B260FAEB900AFE141 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
 				429FA033260FB44A00AFE141 /* CellProtocols */,
-				429FA03D260FBAD500AFE141 /* CellModels */,
 				429FA01E260FAECB00AFE141 /* Cells */,
 				428804C825DFC1B400FE9A98 /* WindowController.h */,
 				428804C925DFC1B400FE9A98 /* WindowController.m */,
@@ -203,17 +197,6 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		429FA024260FAF8600AFE141 /* Core */ = {
-			isa = PBXGroup;
-			children = (
-				428804F225E2D9EB00FE9A98 /* main.m */,
-				42CFE1A025E9C0A200D7452B /* ServiceDelegate.h */,
-				42CFE1A125E9C0A200D7452B /* ServiceDelegate.m */,
-				428804F425E2D9EB00FE9A98 /* Info.plist */,
-			);
-			path = Core;
-			sourceTree = "<group>";
-		};
 		429FA027260FAF9D00AFE141 /* Service */ = {
 			isa = PBXGroup;
 			children = (
@@ -245,13 +228,6 @@
 				42EA66F025E7CECD00A7EFA0 /* FileProcessorProtocol.h */,
 			);
 			path = Protocols;
-			sourceTree = "<group>";
-		};
-		429FA03D260FBAD500AFE141 /* CellModels */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = CellModels;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -518,7 +494,7 @@
 				CODE_SIGN_ENTITLEMENTS = FileProcess/FileProcess.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = FileProcess/Core/Info.plist;
+				INFOPLIST_FILE = FileProcess/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -536,7 +512,7 @@
 				CODE_SIGN_ENTITLEMENTS = FileProcess/FileProcess.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = FileProcess/Core/Info.plist;
+				INFOPLIST_FILE = FileProcess/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -551,7 +527,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = FileProcessXPCService/Core/Info.plist;
+				INFOPLIST_FILE = FileProcessXPCService/Info.plist;
 				PRODUCT_BUNDLE_IDENTIFIER = org.ua.fixme.FileProcessXPCService;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -563,7 +539,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = FileProcessXPCService/Core/Info.plist;
+				INFOPLIST_FILE = FileProcessXPCService/Info.plist;
 				PRODUCT_BUNDLE_IDENTIFIER = org.ua.fixme.FileProcessXPCService;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
