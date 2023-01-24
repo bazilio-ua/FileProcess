@@ -94,17 +94,15 @@
 - (void)processFile:(NSURL *)aFile withDeletion:(BOOL)shouldDelete withReply:(void (^)(NSURL *, NSString *, BOOL))reply {
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        
         if (shouldDelete == YES) {
             [self deleteFile:aFile onCompletion:^(NSURL *aFile, BOOL isDeleted) {
                 reply(aFile, nil, isDeleted);
             }];
-        } else  {
+        } else {
             [self processFile:aFile onCompletion:^(NSURL *aFile, NSString *hash) {
                 reply(aFile, hash, NO);
             }];
         }
-        
     });
 }
 
